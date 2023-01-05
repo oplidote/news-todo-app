@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 
 const NewsView = () => {
   const [newsData, setNewsData] = useState([]);
-  const [ page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
   let newsURL = `http://127.0.0.1:8000/news?page=${page}&count=5`;
   const getDataApi = async (_url: string) => {
     await fetch(_url, {
@@ -29,30 +29,32 @@ const NewsView = () => {
 
   return (
     <NewsArea>
-      <h2><b>오늘의 뉴스</b> 를 확인해보세요</h2>
-      <Swiper
-        modules={[Navigation]}
-        spaceBetween={15}
-        navigation
-        onSlideChange={() => console.log("slide change")}
-        onSwiper={(swiper) => console.log(swiper)}
-        breakpoints={{
-          0: {
-            slidesPerView: 1,
-            slidesPerGroup: 1,
-          },
-          360: {
-            slidesPerView: 1.5,
-            slidesPerGroup: 1,
-          },
-          410: {
-            slidesPerView: 2,
-            slidesPerGroup: 2,
-          },
-        }}
-      >
-        {newsData &&
-          newsData.map((item: any, i: number) => (
+      <h2>
+        <b>오늘의 뉴스</b> 를 확인해보세요
+      </h2>
+      {newsData.length != 0 ? (
+        <Swiper
+          modules={[Navigation]}
+          spaceBetween={15}
+          navigation
+          onSlideChange={() => console.log("slide change")}
+          onSwiper={(swiper) => console.log(swiper)}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              slidesPerGroup: 1,
+            },
+            360: {
+              slidesPerView: 1.5,
+              slidesPerGroup: 1,
+            },
+            410: {
+              slidesPerView: 2,
+              slidesPerGroup: 2,
+            },
+          }}
+        >
+          {newsData.map((item: any, i: number) => (
             <SwiperSlide key={i}>
               <NewsBox>
                 <a href={item.url} target="_blank">
@@ -66,13 +68,17 @@ const NewsView = () => {
               </NewsBox>
             </SwiperSlide>
           ))}
-      </Swiper>
-      <button onClick={() => setPage((current)=> current + 1)}>다른 기사 보기</button>
+        </Swiper>
+      ) : (
+        "존재하는 기사가 없습니다."
+      )}
+      <button onClick={() => setPage((current) => current + 1)}>
+        다른 기사 보기
+      </button>
     </NewsArea>
   );
 };
 const NewsArea = styled.div`
-padding-top: 10%;
   font-size: 1rem;
   .swiper-button-next {
   }
@@ -85,11 +91,11 @@ padding-top: 10%;
     }
   }
   h2 {
-    position:relative;
+    position: relative;
     margin-bottom: 5%;
     font-weight: bold;
-    b{
-      color: #205CFF;
+    b {
+      color: #205cff;
     }
   }
   button {

@@ -1,16 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { NewsView, TodayDate } from "./components/common";
+import { Header, Main } from "./components/common";
 function App() {
   return (
     <div className="App">
       <AppLayout>
         <Container>
-          <header>
-            <h1>News TO-DO</h1>
-            <TodayDate />
-          </header>
-          <NewsView />
+          <Header />
+          <Main />
         </Container>
       </AppLayout>
     </div>
@@ -23,17 +20,6 @@ const AppLayout = styled.div`
   max-width: 480px;
   height: 100vh;
   background-color: #eee;
-  header {
-    padding-top: 5%;
-    text-align: center;
-    h1 {
-      display: inline-block;
-      margin-bottom: 3%;
-      font-weight: bold;
-      font-size: 2rem;
-    }
-  }
-  
 `;
 const Container = styled.div`
   padding: 0 3%;
