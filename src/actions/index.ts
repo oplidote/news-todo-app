@@ -10,6 +10,7 @@ export const add_todo = (todo: any) => {
       id: id++,
       title: todo.title,
       repeat: todo.repeat,
+      description: todo.description,
       isComplete: todo.isComplete,
     },
   };

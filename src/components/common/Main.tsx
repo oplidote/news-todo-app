@@ -10,7 +10,7 @@ const Main = () => {
     <MainLayout>
       <NewsView />
       <OpenModalButton onClick={() => setOpenModal(true)}>할 일 추가</OpenModalButton>
-      {openModal && <AddTodoModal />}
+      {openModal && <AddTodoModal setOpenModal={setOpenModal}/>}
       <TodoView />
     </MainLayout>
   );
@@ -21,6 +21,6 @@ const MainLayout = styled.main`
 `;
 
 const OpenModalButton = styled.button`
-  
+
 `;
 export default Main;

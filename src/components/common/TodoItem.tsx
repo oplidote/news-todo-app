@@ -4,8 +4,8 @@ import { delete_todo } from "../../actions";
 
 const TodoItem = ({ todo }: any) => {
   const dispatch = useDispatch();
-
-  const { id, title, isComplete } = todo;
+  
+  const { id, title, description, repeat, isComplete } = todo;
 
   const handleClick = () => {
     dispatch(delete_todo(id));
@@ -14,9 +14,15 @@ const TodoItem = ({ todo }: any) => {
   return (
     <>
       <div>
+        {isComplete ? 'com': "not com"}
         <h2>{title}</h2>
+        <p>{description}</p>
+        <div>
+          {repeat}
+        </div>
       </div>
-      <button onClick={handleClick}>{isComplete || "X"}</button>
+
+      <button onClick={handleClick}>삭제</button>
     </>
   );
 };
