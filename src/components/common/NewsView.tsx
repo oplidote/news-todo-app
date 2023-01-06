@@ -30,7 +30,7 @@ const NewsView = () => {
   return (
     <NewsArea>
       <h2>
-        <b>오늘의 뉴스</b> 를 확인해보세요
+        <b>오늘의 뉴스</b>를 확인해보세요
       </h2>
       {newsData.length != 0 ? (
         <Swiper
@@ -80,8 +80,6 @@ const NewsView = () => {
 };
 const NewsArea = styled.div`
   font-size: 1rem;
-  .swiper-button-next {
-  }
   .swiper-button-next,
   .swiper-button-prev {
     color: #fff;
