@@ -1,5 +1,5 @@
 // InputForm.js
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { add_todo, update_todo } from "../../actions";
@@ -35,7 +35,8 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
     setRepeat(copy_arr);
   };
 
-  const handleClick = () => {
+  const handleClick = (e:React.MouseEvent) => {
+    e.stopPropagation()
     if (title && !todo) {
       const todo = {
         title: title,
@@ -66,7 +67,7 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
     <AddTodoModalLayout>
       <div>
         <AiOutlineClose
-          onClick={() => setOpenModal(false)}
+          onClick={(e:React.MouseEvent) => {setOpenModal(false);e.stopPropagation()}}
           size={24}
           color="#555"
         />
@@ -132,6 +133,7 @@ const AddTodoModalLayout = styled.div`
   width: 100vw;
   max-width: 480px;
   height: 100vh;
+  cursor: default;
   > div {
     position: relative;
     justify-content: space-evenly;
