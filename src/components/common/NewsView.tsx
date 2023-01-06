@@ -80,8 +80,6 @@ const NewsView = () => {
 };
 const NewsArea = styled.div`
   font-size: 1rem;
-  .swiper-button-next {
-  }
   .swiper-button-next,
   .swiper-button-prev {
     color: #fff;

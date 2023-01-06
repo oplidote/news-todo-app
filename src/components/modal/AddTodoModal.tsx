@@ -13,7 +13,7 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
     todo ? todo.repeat : [0, 0, 0, 0, 0, 0, 0]
   );
 
-  let weekend = ["월", "화", "수", "목", "금", "토", "일"];
+  let weekend = ["일", "월", "화", "수", "목", "금", "토"];
   let copy_arr: number[] = [...repeat];
 
   const titleChange = (e: any) => {
@@ -54,9 +54,8 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
       };
       setOpenModal(false);
       dispatch(update_todo(new_todo));
-    }
-    else if (!title) {
-      alert('제목을 입력해주세요 !');
+    } else if (!title) {
+      alert("제목을 입력해주세요 !");
     }
   };
 
@@ -132,7 +131,7 @@ const AddTodoModalLayout = styled.div`
   height: 100vh;
   > div {
     position: relative;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     display: flex;
     width: 80%;
@@ -178,6 +177,7 @@ const DescriptionArea = styled.div`
   display: flex;
   width: 100%;
   textarea {
+    height: 80px;
     padding: 10px 15px;
     border-radius: 10px;
     border: 2px solid #555;
