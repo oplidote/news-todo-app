@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 import { useSelector } from "react-redux";
 
 const TodoView = () => {
-  const todos = useSelector((state: any) => state.todos);
+  const { todos } = useSelector((state: any) => state.todos);
   const [openModal, setOpenModal] = useState<Boolean>(false);
   let today = new Date();
   let day = today.getDay();

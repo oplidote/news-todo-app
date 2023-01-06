@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { Header, Main } from "./components/common";
-function App() {
+
+const App = () => {
   return (
     <div className="App">
       <AppLayout>
