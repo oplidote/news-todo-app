@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { delete_todo, update_todo } from "../../actions";
@@ -17,11 +17,10 @@ const TodoItem = ({ todo }: any) => {
   const [openModal, setOpenModal] = useState<Boolean>(false);
   const { id, title, description, repeat, isComplete, createDate } = todo;
 
-  
   const deleteTodo = () => {
     dispatch(delete_todo(id));
   };
-  let weekend: string[] = ["일","월", "화", "수", "목", "금", "토" ];
+  let weekend: string[] = ["일", "월", "화", "수", "목", "금", "토"];
   const completeTodo = () => {
     const new_todo = {
       id: id,
@@ -29,7 +28,7 @@ const TodoItem = ({ todo }: any) => {
       description: description,
       repeat: repeat,
       isComplete: !isComplete,
-      createDate: createDate
+      createDate: createDate,
     };
     dispatch(update_todo(new_todo));
   };
@@ -48,25 +47,34 @@ const TodoItem = ({ todo }: any) => {
   };
 
   return (
-    <TodoItemLayout className={isComplete ? "complete" : ""}>
+    <TodoItemLayout
+      className={isComplete ? "complete" : ""}
+      onClick={(e) => {
+        // if (e.target !== e.currentTarget) return;
+        setOpenModal(true);
+      }}
+    >
       <div className="top">
-        <input type="checkbox" onChange={completeTodo} checked={isComplete}></input>
+        <input
+          type="checkbox"
+          onChange={completeTodo}
+          onClick= {(e)=> e.stopPropagation()}
+          checked={isComplete}
+        ></input>
         <h2>{title}</h2>
         {repeat_JSX()}
       </div>
-      <div className="btn-box">
-        <AiOutlineEdit
-          size={24}
-          color="#aaa"
-          onClick={() => setOpenModal(true)}
-        ></AiOutlineEdit>
-        <AiOutlineDelete size={24} color="#aaa" onClick={deleteTodo}>
-          삭제
-        </AiOutlineDelete>
-      </div>
+      <AiOutlineDelete
+        size={24}
+        color="#aaa"
+        onClick={(e) => {
+          deleteTodo();
+          e.stopPropagation()
+        }}
+      ></AiOutlineDelete>
       <p className="desc">{description ? description : "상세 내용 없음"}</p>
 
-      {openModal && <AddTodoModal todo={todo} setOpenModal={setOpenModal} />}
+      {openModal && <AddTodoModal todo={todo} setOpenModal={setOpenModal} onClick={(e:React.MouseEvent)=> e.stopPropagation()}/>}
     </TodoItemLayout>
   );
 };
@@ -78,9 +86,12 @@ const TodoItemLayout = styled.div`
   padding: 5%;
   border-radius: 10px;
   margin-bottom: 5%;
+  cursor: pointer;
   &.complete {
-    opacity: .5;
-    h2 {text-decoration: line-through};
+    opacity: 0.5;
+    h2 {
+      text-decoration: line-through;
+    }
   }
   .top {
     display: flex;
@@ -99,14 +110,11 @@ const TodoItemLayout = styled.div`
       }
     }
   }
-  .btn-box {
+  svg {
     position: absolute;
     display: block;
-    bottom: 4px;
-    right: 8px;
-    svg + svg {
-      margin-left: 5px;
-    }
+    bottom: 10px;
+    right: 15px;
   }
   .desc {
     padding: 5%;
