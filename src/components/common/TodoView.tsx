@@ -9,6 +9,7 @@ const TodoView = () => {
   const [openModal, setOpenModal] = useState<Boolean>(false);
   let today = new Date();
   let day = today.getDay();
+  
   return (
     <TodoViewLayout>
       <h2>
@@ -16,7 +17,16 @@ const TodoView = () => {
       </h2>
       {todos.map((todo: any) => (
         <>
-          {todo.repeat[day] == 1 ? <TodoItem key={todo.id} todo={todo} /> : ""}
+          {todo.repeat.includes(1) ? (
+            todo.repeat[day] == 1 && <TodoItem key={todo.id} todo={todo} />
+          ) : todo.createDate ==
+            `${today.getFullYear()}-${
+              today.getMonth() + 1
+            }-${today.getDate()}` ? (
+            <TodoItem key={todo.id} todo={todo} />
+          ) : (
+            ""
+          )}
         </>
       ))}
 

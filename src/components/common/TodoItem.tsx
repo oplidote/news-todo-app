@@ -5,10 +5,17 @@ import { delete_todo, update_todo } from "../../actions";
 import { AddTodoModal } from "../modal";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
+interface todoType {
+  id: Number;
+  title: String;
+  description: String;
+  repeat: Number[];
+  isComplete: Boolean;
+}
 const TodoItem = ({ todo }: any) => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState<Boolean>(false);
-  const { id, title, description, repeat, isComplete } = todo;
+  const { id, title, description, repeat, isComplete, createDate } = todo;
 
   
   const deleteTodo = () => {
@@ -19,11 +26,11 @@ const TodoItem = ({ todo }: any) => {
     const new_todo = {
       id: todo.id,
       title: todo.title,
-      description: todo.text,
+      description: todo.description,
       repeat: todo.repeat,
       isComplete: !todo.isComplete,
+      createDate: createDate
     };
-    console.log(todo)
     dispatch(update_todo(new_todo));
   };
   const repeat_JSX = () => {

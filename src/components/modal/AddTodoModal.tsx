@@ -6,6 +6,7 @@ import { add_todo, update_todo } from "../../actions";
 import { AiOutlineClose } from "react-icons/ai";
 
 const AddTodoModal = ({ setOpenModal, todo }: any) => {
+  let today = new Date();
   const dispatch = useDispatch();
   const [title, setTitle] = useState<string>(todo ? todo.title : "");
   const [text, setText] = useState<string>(todo ? todo.description : "");
@@ -41,6 +42,7 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
         description: text,
         repeat: repeat,
         isComplete: false,
+        createDate: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
       };
       dispatch(add_todo(todo));
       setOpenModal(false);
@@ -51,6 +53,7 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
         description: text,
         repeat: repeat,
         isComplete: false,
+        createDate: todo.createDate
       };
       setOpenModal(false);
       dispatch(update_todo(new_todo));
