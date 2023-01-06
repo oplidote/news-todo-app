@@ -2,20 +2,25 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { add_todo } from "../../actions";
+import { add_todo, update_todo } from "../../actions";
 import { AiOutlineClose } from "react-icons/ai";
 
-const AddTodoModal = ({ setOpenModal }: any) => {
+const AddTodoModal = ({ setOpenModal, todo }: any) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState<string>("");
-  const [text, setText] = useState<string>("");
-  const [repeat, setRepeat] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
+  const [title, setTitle] = useState<string>(todo ? todo.title : "");
+  const [text, setText] = useState<string>(todo ? todo.description : "");
+  const [repeat, setRepeat] = useState<number[]>(
+    todo ? todo.repeat : [0, 0, 0, 0, 0, 0, 0]
+  );
+
   let weekend = ["월", "화", "수", "목", "금", "토", "일"];
   let copy_arr: number[] = [...repeat];
+
   const titleChange = (e: any) => {
     const { value } = e.target;
     setTitle(value);
   };
+
   const textChange = (e: any) => {
     const { value } = e.target;
     setText(value);
@@ -30,7 +35,7 @@ const AddTodoModal = ({ setOpenModal }: any) => {
   };
 
   const handleClick = () => {
-    if (title) {
+    if (title && !todo) {
       const todo = {
         title: title,
         description: text,
@@ -38,19 +43,31 @@ const AddTodoModal = ({ setOpenModal }: any) => {
         isComplete: false,
       };
       dispatch(add_todo(todo));
-      setTitle("");
-      setText("");
       setOpenModal(false);
-      setRepeat([0, 0, 0, 0, 0, 0, 0]);
-    } else {
-      return;
+    } else if (todo) {
+      const new_todo = {
+        id: todo.id,
+        title: title,
+        description: text,
+        repeat: repeat,
+        isComplete: false,
+      };
+      setOpenModal(false);
+      dispatch(update_todo(new_todo));
+    }
+    else if (!title) {
+      alert('제목을 입력해주세요 !');
     }
   };
 
   return (
     <AddTodoModalLayout>
       <div>
-        <AiOutlineClose onClick={() => setOpenModal(false)} size={24} color="#555"/>
+        <AiOutlineClose
+          onClick={() => setOpenModal(false)}
+          size={24}
+          color="#555"
+        />
         <TitleArea>
           <span>제목</span>
           <input
@@ -73,6 +90,7 @@ const AddTodoModal = ({ setOpenModal }: any) => {
           <RepeatBtnWrap>
             {weekend.map((day: any, i: number) => (
               <button
+                key={i}
                 className={repeat[i] == 1 ? "on" : ""}
                 onClick={() => {
                   repeatChange(i);
@@ -94,7 +112,7 @@ const AddTodoModal = ({ setOpenModal }: any) => {
             width: "50%",
           }}
         >
-          추가
+          {todo ? "수정" : "추가"}
         </button>
       </div>
     </AddTodoModalLayout>
@@ -103,12 +121,14 @@ const AddTodoModal = ({ setOpenModal }: any) => {
 const AddTodoModalLayout = styled.div`
   position: fixed;
   display: flex;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   align-items: center;
   z-index: 999;
   width: 100vw;
+  max-width: 480px;
   height: 100vh;
   > div {
     position: relative;

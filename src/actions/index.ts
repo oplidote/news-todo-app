@@ -1,6 +1,6 @@
 export const ADD = "ADD_TODO";
+export const UPDATE = "UPDATE_TODO";
 export const DELETE = "DELETE_TODO";
-
 let id = 1;
 
 export const add_todo = (todo: any) => {
@@ -15,7 +15,18 @@ export const add_todo = (todo: any) => {
     },
   };
 };
-
+export const update_todo = (todo:any) => {
+  return {
+    type:UPDATE,
+    todo: {
+      id: todo.id,
+      title: todo.title,
+      repeat: todo.repeat,
+      description: todo.description,
+      isComplete: todo.isComplete,
+    }
+  }
+}
 export const delete_todo = (id:number) => {
   return {
     type: DELETE,
