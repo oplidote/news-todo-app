@@ -5,11 +5,11 @@ import TodoItem from "./TodoItem";
 import { useSelector } from "react-redux";
 
 const TodoView = () => {
-  const todos = useSelector((state: any) => state.todos);
+  const { todos } = useSelector((state: any) => state.todos);
   const [openModal, setOpenModal] = useState<Boolean>(false);
   let today = new Date();
   let day = today.getDay();
-  
+
   return (
     <TodoViewLayout>
       <h2>
@@ -52,7 +52,8 @@ const TodoViewLayout = styled.div`
   }
   .add-btn {
     position: fixed;
-    left: 0;
+    left:50%;
+    transform: translateX(-50%);
     bottom: 0;
     width: 100%;
     height: 51px;

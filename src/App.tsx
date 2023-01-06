@@ -1,7 +1,7 @@
-import React from "react";
 import styled from "styled-components";
 import { Header, Main } from "./components/common";
-function App() {
+
+const App = () => {
   return (
     <div className="App">
       <AppLayout>
@@ -18,7 +18,7 @@ const AppLayout = styled.div`
   display: block;
   margin: 0 auto;
   max-width: 480px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #eee;
 `;
 const Container = styled.div`

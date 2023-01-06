@@ -82,10 +82,9 @@ const NewsArea = styled.div`
   font-size: 1rem;
   .swiper-button-next,
   .swiper-button-prev {
-    color: #fff;
+    color: #205cff;
     &::after {
-      font-size: 1.8rem !important;
-      text-shadow: 2px 2px 2px #000;
+      font-size: 2.5rem !important;
     }
   }
   h2 {

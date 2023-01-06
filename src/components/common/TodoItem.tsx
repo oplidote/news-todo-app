@@ -24,11 +24,11 @@ const TodoItem = ({ todo }: any) => {
   let weekend: string[] = ["일","월", "화", "수", "목", "금", "토" ];
   const completeTodo = () => {
     const new_todo = {
-      id: todo.id,
-      title: todo.title,
-      description: todo.description,
-      repeat: todo.repeat,
-      isComplete: !todo.isComplete,
+      id: id,
+      title: title,
+      description: description,
+      repeat: repeat,
+      isComplete: !isComplete,
       createDate: createDate
     };
     dispatch(update_todo(new_todo));
