@@ -1,5 +1,6 @@
+
 const TodayDate = () => {
-  let dayArr = ["일", "월", "화", "수", "목", "금", "토"];
+  let dayArr:string[] = ["일", "월", "화", "수", "목", "금", "토"];
   let today = new Date();
   let day = today.getDay();
   let year = today.getFullYear();
