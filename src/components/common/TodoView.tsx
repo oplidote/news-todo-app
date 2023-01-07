@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AddTodoModal } from "../modal";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
@@ -15,8 +15,7 @@ const TodoView = () => {
         <b>오늘의 할 일</b>을 확인해보세요
       </h2>
       {todos.map((todo: todoTypes) => (
-        <>
-          {todo.repeat.includes(1) ? (
+          todo.repeat.includes(1) ? (
             todo.repeat[day] == 1 && <TodoItem key={todo.id} todo={todo} />
           ) : todo.createDate ==
             `${today.getFullYear()}-${
@@ -25,8 +24,7 @@ const TodoView = () => {
             <TodoItem key={todo.id} todo={todo} />
           ) : (
             ""
-          )}
-        </>
+          )
       ))}
 
       <button className="add-btn" onClick={() => setOpenModal(true)}>

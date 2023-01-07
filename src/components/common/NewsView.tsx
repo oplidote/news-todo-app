@@ -7,8 +7,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const NewsView = () => {
-  const [newsData, setNewsData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [newsData, setNewsData] = useState<newsItemTypes[]>([]);
+  const [page, setPage] = useState<number>(1);
   let newsURL = `http://127.0.0.1:8000/news?page=${page}&count=5`;
   const getDataApi = async (_url: string) => {
     await fetch(_url, {

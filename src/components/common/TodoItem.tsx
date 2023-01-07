@@ -5,7 +5,7 @@ import { delete_todo, update_todo } from "../../actions";
 import { AddTodoModal } from "../modal";
 import { AiOutlineDelete } from "react-icons/ai";
 interface propsTodoTypes {
-  todo:todoTypes;
+  todo: todoTypes;
 }
 const TodoItem = (props: propsTodoTypes) => {
   const dispatch = useDispatch();
@@ -43,8 +43,7 @@ const TodoItem = (props: propsTodoTypes) => {
   return (
     <TodoItemLayout
       className={isComplete ? "complete" : ""}
-      onClick={(e) => {
-        // if (e.target !== e.currentTarget) return;
+      onClick={() => {
         setOpenModal(true);
       }}
     >
@@ -52,7 +51,7 @@ const TodoItem = (props: propsTodoTypes) => {
         <input
           type="checkbox"
           onChange={completeTodo}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
           checked={isComplete}
         ></input>
         <h2>{title}</h2>
@@ -61,7 +60,7 @@ const TodoItem = (props: propsTodoTypes) => {
       <AiOutlineDelete
         size={24}
         color="#aaa"
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent) => {
           deleteTodo();
           e.stopPropagation();
         }}

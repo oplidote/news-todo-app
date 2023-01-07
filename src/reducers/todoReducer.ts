@@ -1,10 +1,13 @@
 import { ADD, UPDATE, DELETE } from "../actions";
 
-const initialState = {
+const initialState: stateTypes = {
   todos: [],
 };
 
-export const todoReducer = (state:stateTypes = initialState, action: any) => {
+export const todoReducer = (
+  state: stateTypes = initialState,
+  action: Action
+) => {
   if (action.type === ADD) {
     return {
       todos: [...state.todos, action.todo],
@@ -19,7 +22,7 @@ export const todoReducer = (state:stateTypes = initialState, action: any) => {
     };
   } else if (action.type === DELETE) {
     return {
-      todos: [...state.todos.filter((todo: any) => todo.id !== action.id)],
+      todos: [...state.todos.filter((todo: todoTypes) => todo.id !== action.id)],
     };
   } else {
     return state;
