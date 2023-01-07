@@ -5,17 +5,16 @@ import TodoItem from "./TodoItem";
 import { useSelector } from "react-redux";
 
 const TodoView = () => {
-  const { todos } = useSelector((state: any) => state.todos);
+  const { todos } = useSelector((state: stateTypes) => state.todos);
   const [openModal, setOpenModal] = useState<Boolean>(false);
   let today = new Date();
   let day = today.getDay();
-
   return (
     <TodoViewLayout>
       <h2>
         <b>오늘의 할 일</b>을 확인해보세요
       </h2>
-      {todos.map((todo: any) => (
+      {todos.map((todo: todoTypes) => (
         <>
           {todo.repeat.includes(1) ? (
             todo.repeat[day] == 1 && <TodoItem key={todo.id} todo={todo} />
@@ -52,7 +51,7 @@ const TodoViewLayout = styled.div`
   }
   .add-btn {
     position: fixed;
-    left:50%;
+    left: 50%;
     transform: translateX(-50%);
     bottom: 0;
     width: 100%;

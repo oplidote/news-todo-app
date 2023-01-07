@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 // swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,7 +16,6 @@ const NewsView = () => {
     })
       .then((res) => res.json())
       .then((json) => {
-        console.log(json.items);
         setNewsData(json.items);
       })
       .catch((error) => console.log(error));
@@ -25,7 +24,6 @@ const NewsView = () => {
     getDataApi(newsURL);
   }, [page]);
 
-  console.log("뉴스 데이터", newsData);
 
   return (
     <NewsArea>
@@ -37,8 +35,6 @@ const NewsView = () => {
           modules={[Navigation]}
           spaceBetween={15}
           navigation
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
           breakpoints={{
             0: {
               slidesPerView: 1,
@@ -54,7 +50,7 @@ const NewsView = () => {
             },
           }}
         >
-          {newsData.map((item: any, i: number) => (
+          {newsData.map((item: newsItemTypes, i: number) => (
             <SwiperSlide key={i}>
               <NewsBox>
                 <a href={item.url} target="_blank">

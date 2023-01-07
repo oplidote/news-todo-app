@@ -1,13 +1,18 @@
 // InputForm.js
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import styled from "styled-components";
-import { add_todo, update_todo } from "../../actions";
+import { add_todo, increase, update_todo } from "../../actions";
 import { AiOutlineClose } from "react-icons/ai";
-
-const AddTodoModal = ({ setOpenModal, todo }: any) => {
+type propsButtonTypes = {
+  todo?:todoTypes;
+  setOpenModal: (b:boolean) => void;
+  onClick?: (e: React.MouseEvent) => void;
+}
+const AddTodoModal = ({ setOpenModal, todo }:propsButtonTypes) => {
   let today = new Date();
   const dispatch = useDispatch();
+  const { id } = useSelector((state: any) => state.id);
   const [title, setTitle] = useState<string>(todo ? todo.title : "");
   const [text, setText] = useState<string>(todo ? todo.description : "");
   const [repeat, setRepeat] = useState<number[]>(
@@ -35,16 +40,20 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
     setRepeat(copy_arr);
   };
 
-  const handleClick = (e:React.MouseEvent) => {
-    e.stopPropagation()
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (title && !todo) {
-      const todo = {
+      const todo: todoTypes = {
+        id: id,
         title: title,
         description: text,
         repeat: repeat,
         isComplete: false,
-        createDate: `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+        createDate: `${today.getFullYear()}-${
+          today.getMonth() + 1
+        }-${today.getDate()}`,
       };
+      dispatch(increase(id));
       dispatch(add_todo(todo));
       setOpenModal(false);
     } else if (todo) {
@@ -54,7 +63,7 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
         description: text,
         repeat: repeat,
         isComplete: false,
-        createDate: todo.createDate
+        createDate: todo.createDate,
       };
       setOpenModal(false);
       dispatch(update_todo(new_todo));
@@ -67,7 +76,10 @@ const AddTodoModal = ({ setOpenModal, todo }: any) => {
     <AddTodoModalLayout>
       <div>
         <AiOutlineClose
-          onClick={(e:React.MouseEvent) => {setOpenModal(false);e.stopPropagation()}}
+          onClick={(e: React.MouseEvent) => {
+            setOpenModal(false);
+            e.stopPropagation();
+          }}
           size={24}
           color="#555"
         />

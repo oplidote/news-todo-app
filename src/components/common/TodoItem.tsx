@@ -3,26 +3,20 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { delete_todo, update_todo } from "../../actions";
 import { AddTodoModal } from "../modal";
-import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
-
-interface todoType {
-  id: Number;
-  title: String;
-  description: String;
-  repeat: Number[];
-  isComplete: Boolean;
+import { AiOutlineDelete } from "react-icons/ai";
+interface propsTodoTypes {
+  todo:todoTypes;
 }
-const TodoItem = ({ todo }: any) => {
+const TodoItem = (props: propsTodoTypes) => {
   const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState<Boolean>(false);
-  const { id, title, description, repeat, isComplete, createDate } = todo;
-
+  const { id, title, description, repeat, isComplete, createDate } = props.todo;
   const deleteTodo = () => {
     dispatch(delete_todo(id));
   };
   let weekend: string[] = ["일", "월", "화", "수", "목", "금", "토"];
   const completeTodo = () => {
-    const new_todo = {
+    const new_todo: todoTypes = {
       id: id,
       title: title,
       description: description,
@@ -58,7 +52,7 @@ const TodoItem = ({ todo }: any) => {
         <input
           type="checkbox"
           onChange={completeTodo}
-          onClick= {(e)=> e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
           checked={isComplete}
         ></input>
         <h2>{title}</h2>
@@ -69,12 +63,18 @@ const TodoItem = ({ todo }: any) => {
         color="#aaa"
         onClick={(e) => {
           deleteTodo();
-          e.stopPropagation()
+          e.stopPropagation();
         }}
       ></AiOutlineDelete>
       <p className="desc">{description ? description : "상세 내용 없음"}</p>
 
-      {openModal && <AddTodoModal todo={todo} setOpenModal={setOpenModal} onClick={(e:React.MouseEvent)=> e.stopPropagation()}/>}
+      {openModal && (
+        <AddTodoModal
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+          todo={props.todo}
+          setOpenModal={setOpenModal}
+        />
+      )}
     </TodoItemLayout>
   );
 };
