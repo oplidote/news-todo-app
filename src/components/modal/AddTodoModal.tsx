@@ -1,15 +1,15 @@
 // InputForm.js
 import React, { useState } from "react";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { add_todo, increase, update_todo } from "../../actions";
 import { AiOutlineClose } from "react-icons/ai";
 type propsButtonTypes = {
-  todo?:todoTypes;
-  setOpenModal: (b:boolean) => void;
+  todo?: todoTypes;
+  setOpenModal: (b: boolean) => void;
   onClick?: (e: React.MouseEvent) => void;
-}
-const AddTodoModal = ({ setOpenModal, todo }:propsButtonTypes) => {
+};
+const AddTodoModal = ({ setOpenModal, todo }: propsButtonTypes) => {
   let today = new Date();
   const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.id);
@@ -73,13 +73,23 @@ const AddTodoModal = ({ setOpenModal, todo }:propsButtonTypes) => {
   };
 
   return (
-    <AddTodoModalLayout>
-      <div>
+    <AddTodoModalLayout
+      onClick={(e: React.MouseEvent) => {
+        setOpenModal(false);
+        e.stopPropagation();
+      }}
+    >
+      <div
+        onClick={(e: React.MouseEvent) => {
+          e.stopPropagation();
+        }}
+      >
         <AiOutlineClose
           onClick={(e: React.MouseEvent) => {
             setOpenModal(false);
             e.stopPropagation();
           }}
+          
           size={24}
           color="#555"
         />
@@ -145,6 +155,7 @@ const AddTodoModalLayout = styled.div`
   width: 100vw;
   max-width: 480px;
   height: 100vh;
+  background-color: rgba(55, 55, 55, 0.5);
   cursor: default;
   > div {
     position: relative;
@@ -162,20 +173,11 @@ const AddTodoModalLayout = styled.div`
       padding: 0;
       top: 5%;
       right: 7%;
+      cursor: pointer;
     }
   }
   span {
     margin-bottom: 10px;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    background-color: #555;
-    opacity: 0.5;
-    z-index: -1;
   }
 `;
 const TitleArea = styled.div`
@@ -194,6 +196,7 @@ const DescriptionArea = styled.div`
   display: flex;
   width: 100%;
   textarea {
+    resize: none;
     height: 80px;
     padding: 10px 15px;
     border-radius: 10px;
