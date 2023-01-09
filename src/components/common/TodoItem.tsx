@@ -43,9 +43,7 @@ const TodoItem = (props: propsTodoTypes) => {
   return (
     <TodoItemLayout
       className={isComplete ? "complete" : ""}
-      onClick={() => {
-        setOpenModal(true);
-      }}
+      onClick={() => isComplete ? "" : setOpenModal(true)}
     >
       <div className="top">
         <input
