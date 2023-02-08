@@ -1,24 +1,30 @@
 // InputForm.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { add_todo, increase, update_todo } from "../../actions";
 import { AiOutlineClose } from "react-icons/ai";
+
 type propsButtonTypes = {
   todo?: todoTypes;
   setOpenModal: (b: boolean) => void;
   onClick?: (e: React.MouseEvent) => void;
 };
+
 const AddTodoModal = ({ setOpenModal, todo }: propsButtonTypes) => {
   let today = new Date();
   const dispatch = useDispatch();
   const { id } = useSelector((state: any) => state.id);
-  const [title, setTitle] = useState<string>(todo ? todo.title : "");
-  const [text, setText] = useState<string>(todo ? todo.description : "");
-  const [repeat, setRepeat] = useState<number[]>(
-    todo ? todo.repeat : [0, 0, 0, 0, 0, 0, 0]
-  );
-
+  const [title, setTitle] = useState<string>("");
+  const [text, setText] = useState<string>("");
+  const [repeat, setRepeat] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
+  useEffect(() => {
+    if (todo) {
+      setTitle(todo.title);
+      setText(todo.description);
+      setRepeat(todo.repeat);
+    }
+  }, [todo]);
   let weekend = ["일", "월", "화", "수", "목", "금", "토"];
   let copy_arr: number[] = [...repeat];
 
@@ -89,7 +95,6 @@ const AddTodoModal = ({ setOpenModal, todo }: propsButtonTypes) => {
             setOpenModal(false);
             e.stopPropagation();
           }}
-          
           size={24}
           color="#555"
         />
